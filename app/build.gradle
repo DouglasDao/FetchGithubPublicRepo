@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -16,6 +15,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+    dataBinding {
+        enabled true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,17 +31,23 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.AppcompatVersion"
+    implementation "androidx.core:core-ktx:$rootProject.ext.KtxVersion"
+
+    // Google Material Components
+    implementation "com.google.android.material:material:$rootProject.ext.googleMaterialVersion"
+
+    // Google AndroidX RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.androidxRecyclerViewVersion"
+
+    // Google Jetpack ViewModel and Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+
+    // Google Volley Networking Library & GSON for (De)serializing JSON & Java Objects
+    implementation "com.android.volley:volley:$rootProject.ext.VolleyVersion"
+    implementation "com.google.code.gson:gson:$rootProject.ext.GsonVersion"
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
-    implementation 'androidx.navigation:navigation-fragment:2.0.0'
-    implementation 'androidx.navigation:navigation-ui:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

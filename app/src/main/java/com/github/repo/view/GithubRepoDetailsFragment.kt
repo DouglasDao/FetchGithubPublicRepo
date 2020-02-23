@@ -4,29 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.github.repo.R
-import com.github.repo.viewmodel.DashboardViewModel
+import com.github.repo.databinding.FragmentGithubRepoDetailsBinding
+import com.github.repo.model.response.GitFetchResponse
+import com.github.repo.view.utils.Constants.RequestKey.REPO_DETAILS
 
 class GithubRepoDetailsFragment : Fragment() {
+    private var binding: FragmentGithubRepoDetailsBinding? = null
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_github_repo_details, container, false)
+        return binding?.root
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_github_repo_details, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        arguments?.let {
+            val response = it.getParcelable<GitFetchResponse>(REPO_DETAILS)
+            binding?.repo = response
+            binding?.repoOwner = response?.owner
+            binding?.executePendingBindings()
+
+        } ?: run {
+
+        }
     }
 }
