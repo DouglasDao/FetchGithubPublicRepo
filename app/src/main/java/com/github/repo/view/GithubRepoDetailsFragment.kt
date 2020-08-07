@@ -1,3 +1,4 @@
+/*
 package com.github.repo.view
 
 import android.os.Bundle
@@ -32,4 +33,4 @@ class GithubRepoDetailsFragment : Fragment() {
 
         }
     }
-}
+}*/
