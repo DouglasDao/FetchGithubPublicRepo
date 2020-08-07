@@ -23,7 +23,6 @@ class ImageDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_details)
         extrasFromIntents()
-        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
     }
 
 
@@ -39,6 +38,7 @@ class ImageDetailsActivity : AppCompatActivity() {
 
         val bitmapDrawable = ContextCompat.getDrawable(this, imgResInt) as BitmapDrawable
         tvImgSize.text = "Size : " + bitmapDrawable.bitmap.width + "x" + bitmapDrawable.bitmap.height + " (" + bitmapDrawable.bitmap.byteCount + " bytes)"
+        scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
     }
 
@@ -51,5 +51,4 @@ class ImageDetailsActivity : AppCompatActivity() {
             return true
         }
     }
-
 }
