@@ -4,12 +4,16 @@ import android.view.View
 import com.github.repo.databinding.InflatePopulateImgBinding
 import com.github.repo.model.adapter.listener.BaseRecyclerAdapterListener
 
-class ImageLoadingViewHolder(binding: InflatePopulateImgBinding, private val listener: BaseRecyclerAdapterListener<Int>) : BaseViewHolder<Int, InflatePopulateImgBinding>(binding.root, binding), View.OnClickListener {
+
+class ImageLoadingViewHolder(
+    binding: InflatePopulateImgBinding,
+    private val listener: BaseRecyclerAdapterListener<Int>
+) : BaseViewHolder<Int, InflatePopulateImgBinding>(binding.root, binding), View.OnClickListener {
 
     override fun populateData() {
 
-        binding.ivAvatar.setImageResource(data)
-
+        val res = mContext.resources.getDrawable(data, null)
+        binding.ivAvatar.setImageDrawable(res)
         itemView.setOnClickListener(this)
     }
 
